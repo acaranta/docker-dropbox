@@ -2,7 +2,7 @@ docker-dropbox
 ===================
 A headless containerized docker container for dropbox.
 
-==How to use
+# How to use
 
 ```
 #first create the persistent file paths (ie in /srv) :
@@ -18,6 +18,6 @@ docker run --rm -ti -v /srv/dropbox/conf:/.dropbox -v /srv/dropbox/data:/Dropbox
 docker run -d -v /srv/dropbox/conf:/.dropbox -v /srv/dropbox/data:/Dropbox acaranta/docker-dropbox
 ```
 
-==Source
+# Source
 the Dockerfile is greatly inspired from https://github.com/CenturyLinkLabs/ctlc-docker-dropbox
 hence the LICENSE ;)
