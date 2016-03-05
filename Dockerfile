@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER lucas@rufy.com
-
+RUN apt-get update && apt-get install -y psmisc
 ADD https://www.dropbox.com/download?plat=lnx.x86_64 /dropbox.tgz
 RUN tar xfvz /dropbox.tgz && rm /dropbox.tgz
 
