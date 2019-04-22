@@ -1,9 +1,11 @@
 FROM ubuntu:14.04
 MAINTAINER arthur@caranta.com
 RUN apt-get update && apt-get install -y psmisc curl
-RUN mkdir /.dropbox-dist && touch /.dropbox-dist/VERSION
+RUN mkdir /root/.dropbox-dist && touch /root/.dropbox-dist/VERSION
 
 ADD getdropbox.sh /
 RUN /getdropbox.sh
 
-CMD while true ; do /getdropbox.sh ; echo "Restarting Dropbox Daemon" ;killall -9 /.dropbox-dist/dropboxd; /.dropbox-dist/dropboxd ; sleep 5 ; done
+WORKDIR /root
+
+CMD while true ; do /getdropbox.sh ; echo "Cleaning Dropbox Processes" ;killall -9 $(ls /root/.dropbox-dist/dropbox-lnx*/dropbox) ; killall -9 /root/.dropbox-dist/dropboxd; echo "Restarting Dropbox" ; /root/.dropbox-dist/dropboxd ; sleep 5 ; done
