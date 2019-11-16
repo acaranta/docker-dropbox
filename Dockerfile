@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER arthur@caranta.com
-RUN apt-get update && apt-get install -y psmisc curl
+RUN apt-get update && apt-get install -y psmisc curl libatomic1
 RUN mkdir /root/.dropbox-dist && touch /root/.dropbox-dist/VERSION
 
 ADD getdropbox.sh /
