@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER arthur@caranta.com
-RUN apt-get update && apt-get install -y psmisc curl libatomic1
+RUN apt-get update && apt-get install -y psmisc curl libatomic1 libglib2.0-0
 RUN mkdir /root/.dropbox-dist && touch /root/.dropbox-dist/VERSION
 
 # Add Tini
