@@ -20,7 +20,7 @@ steps:
   - echo $TARGETPLATFORM
   - docker buildx create --name multiarch --driver docker-container --use
   - docker buildx ls
-  - docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --push --tag $REGISTRYURL/docker-dropbox:latest ./latest
+  - docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --push --tag $REGISTRYURL/docker-dropbox:latest .
 
 - name: notification
   image: plugins/webhook
