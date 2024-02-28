@@ -1,55 +1,66 @@
-kind: pipeline
-type: docker
-name: Build Image
+kind: template
+load: docker-build-multiarch.yaml
+data:
+  appriseurl:
+    from_secret: appriseurl
+  registryurl:
+    from_secret: registryurl
+  dockerfiledir: .
+  imagename: docker-dropbox
+  imagetag: latest  
+  
+# kind: pipeline
+# type: docker
+# name: Build Image
 
-steps:
-- name: Build multiarch
-  image: docker:dind
-  volumes:
-  - name: dockersock
-    path: /var/run
-  environment:
-    APPRISEURL:
-      from_secret: appriseurl
-    REGISTRYURL:
-      from_secret: registryurl
-  commands:
-  # - sleep 5 # give docker enough time to start
-  - while true; do if docker ps -a 2>1 >/dev/null; then echo "Docker Server Running"; break; else echo "Docker starting, retrying in 5 seconds"; sleep 5; fi; done
-  - docker ps -a
-  - echo $TARGETPLATFORM
-  - docker buildx create --name multiarch --driver docker-container --use
-  - docker buildx ls
-  - docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --push --tag $REGISTRYURL/docker-dropbox:latest .
+# steps:
+# - name: Build multiarch
+#   image: docker:dind
+#   volumes:
+#   - name: dockersock
+#     path: /var/run
+#   environment:
+#     APPRISEURL:
+#       from_secret: appriseurl
+#     REGISTRYURL:
+#       from_secret: registryurl
+#   commands:
+#   # - sleep 5 # give docker enough time to start
+#   - while true; do if docker ps -a 2>1 >/dev/null; then echo "Docker Server Running"; break; else echo "Docker starting, retrying in 5 seconds"; sleep 5; fi; done
+#   - docker ps -a
+#   - echo $TARGETPLATFORM
+#   - docker buildx create --name multiarch --driver docker-container --use
+#   - docker buildx ls
+#   - docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --push --tag $REGISTRYURL/docker-dropbox:latest .
 
-- name: notification
-  image: plugins/webhook
-  when:
-      status: [success, failure]
-  settings:
-    urls: 
-      from_secret: appriseurl
-    content_type: application/json
-    template: |
-      {
-        "owner": "{{ repo.owner }}",
-        "repo": "{{ repo.name }}",
-        "status": "{{ build.status }}"
-      }
-
-
-services:
-- name: docker service
-  image: docker:dind
-  privileged: true
-  volumes:
-  - name: dockersock
-    path: /var/run
-
-volumes:
-- name: dockersock
-  temp: {}
+# - name: notification
+#   image: plugins/webhook
+#   when:
+#       status: [success, failure]
+#   settings:
+#     urls: 
+#       from_secret: appriseurl
+#     content_type: application/json
+#     template: |
+#       {
+#         "owner": "{{ repo.owner }}",
+#         "repo": "{{ repo.name }}",
+#         "status": "{{ build.status }}"
+#       }
 
 
-node:
-  runnername: runner02
+# services:
+# - name: docker service
+#   image: docker:dind
+#   privileged: true
+#   volumes:
+#   - name: dockersock
+#     path: /var/run
+
+# volumes:
+# - name: dockersock
+#   temp: {}
+
+
+# node:
+#   runnername: runner02
