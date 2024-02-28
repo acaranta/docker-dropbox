@@ -1,5 +1,5 @@
-FROM ubuntu:14.04
-MAINTAINER arthur@caranta.com
+FROM ubuntu:22.04
+
 RUN apt-get update && apt-get install -y psmisc curl libatomic1 libglib2.0-0
 RUN apt-get install -y libglapi-mesa  libxdamage1 libxfixes3 libxcb-glx0 libxcb-dri2-0 libxcb-dri3-0 libxcb-present0 libxcb-sync1 libxshmfence1 libxxf86vm1
 RUN mkdir /root/.dropbox-dist && touch /root/.dropbox-dist/VERSION
