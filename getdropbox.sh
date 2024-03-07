@@ -1,5 +1,5 @@
 #!/bin/bash 
-WEBVERSION=$(curl -sIkL "https://www.dropbox.com/download?plat=lnx.x86_64" |grep Location |sed 's/.*dropbox-lnx.x86_64-//g' | sed 's/.tar.gz.*//g') 
+WEBVERSION=$(curl -sIkL "https://www.dropbox.com/download?plat=lnx.x86_64" |grep -i Location |sed 's/.*dropbox-lnx.x86_64-//g' | sed 's/.tar.gz.*//g') 
 LOCALVERSION=$(< /root/.dropbox-dist/VERSION)
 # Verison comparison source : https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
 vercomp () {
