@@ -5,3 +5,4 @@ data:
   dockerfiledir: .
   imagename: docker-dropbox
   imagetag: latest  
+  branches: ['master', 'main']
