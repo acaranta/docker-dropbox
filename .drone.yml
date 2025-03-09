@@ -6,3 +6,4 @@ data:
   imagename: docker-dropbox
   imagetag: latest  
   branches: ['master', 'main']
+
