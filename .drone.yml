@@ -3,7 +3,7 @@ kind: template
 load: docker-build-multiarch.yaml
 data:
   dockerfiledir: .
-  imagename: docker-dropbox
+  imagename: app/docker-dropbox
   imagetag: latest  
   branches: ['master', 'main']
 
