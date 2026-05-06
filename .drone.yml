@@ -4,6 +4,8 @@ load: docker-build-multiarch.yaml
 data:
   dockerfiledir: .
   imagename: app/docker-dropbox
+  hubimagename: docker-dropbox
+  repotype: both
   imagetag: latest  
   branches: ['master', 'main']
 
